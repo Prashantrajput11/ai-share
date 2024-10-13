@@ -4,9 +4,17 @@ import { images } from "../constants";
 import CButton from "../components/CButton";
 
 import { StatusBar } from "expo-status-bar";
-import { router } from "expo-router";
+import { Redirect, router } from "expo-router";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function App() {
+	const { session } = useAuth();
+
+	console.log("hey session", session);
+
+	if (session) {
+		return <Redirect href="/home" />;
+	}
 	return (
 		<SafeAreaView className="bg-primary h-full">
 			<ScrollView contentContainerStyle={{ height: "100%" }}>

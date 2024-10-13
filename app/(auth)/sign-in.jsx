@@ -6,6 +6,7 @@ import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CButton from "../../components/CButton";
 import { Link } from "expo-router";
+import { supabase } from "../../Lib/supabase";
 
 const SignIn = () => {
 	const [form, setForm] = useState({
@@ -13,23 +14,13 @@ const SignIn = () => {
 		password: "",
 	});
 
-	const validateInputs = () => {
-		if (form.email === "" || form.password === "") {
-			Alert.alert("Invalid", "Please dont leave any field empty");
-			return false;
-		} else {
-			return true;
-		}
+	const onSubmit = async () => {
+		const { error } = await supabase.auth.signInWithPassword({
+			email: form.email,
+			password: form.password,
+		});
 
-		//
-	};
-
-	const onSubmit = () => {
-		if (validateInputs) {
-			Alert.alert("Success", "Enjoy the app ");
-		} else {
-			Alert.alert("can not login", "sorry ");
-		}
+		if (error) Alert.alert(error.message);
 	};
 	return (
 		<SafeAreaView className="bg-primary flex-1 ">
