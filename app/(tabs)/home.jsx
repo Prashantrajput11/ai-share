@@ -4,12 +4,15 @@ import { supabase } from "../../Lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 
 const Home = () => {
-	const { signOut } = useAuth();
+	const { signOut, profile } = useAuth();
+
+	console.log("prof", profile);
 	return (
 		<View>
 			<Text>Home</Text>
+			<Text>{profile.username}</Text>
 
-			<Button onPress={signOut} title="sign out" />
+			{/* <Button onPress={signOut} title="sign out" /> */}
 		</View>
 	);
 };

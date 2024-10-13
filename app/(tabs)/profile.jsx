@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useAuth } from "@/providers/AuthProvider";
 
 const Profile = () => {
+	const { profile } = useAuth();
 	return (
 		<View>
-			<Text>Profile</Text>
+			<Text>Profile {profile.username}</Text>
 		</View>
 	);
 };
