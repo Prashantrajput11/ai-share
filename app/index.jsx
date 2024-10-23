@@ -1,4 +1,4 @@
-import { ScrollView, Text, View, Image } from "react-native";
+import { ScrollView, Text, View, Image, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../constants";
 import CButton from "../components/CButton";
@@ -6,15 +6,19 @@ import CButton from "../components/CButton";
 import { StatusBar } from "expo-status-bar";
 import { Redirect, router } from "expo-router";
 import { useAuth } from "@/providers/AuthProvider";
+import { useEffect } from "react";
 
 export default function App() {
-	const { session } = useAuth();
+	const { session, loading } = useAuth();
 
-	console.log("hey session", session);
+	if (loading) {
+		return <ActivityIndicator size="large" color="#0000ff" />;
+	}
 
 	if (session) {
-		return <Redirect href="/home" />;
+		router.replace("/home");
 	}
+
 	return (
 		<SafeAreaView className="bg-primary h-full">
 			<ScrollView contentContainerStyle={{ height: "100%" }}>

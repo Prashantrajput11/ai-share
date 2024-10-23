@@ -1,7 +1,8 @@
 import { Stack, SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
-import AuthProvider, { useAuth } from "./../providers/AuthProvider";
+import AuthProvider, { useAuth } from "../providers/AuthProvider";
+import QueryProvider from "../providers/QueryProvider";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -36,10 +37,12 @@ export default function RootLayout() {
 
 	return (
 		<AuthProvider>
-			<Stack>
-				<Stack.Screen name="index" options={{ headerShown: false }} />
-				<Stack.Screen name="(auth)" options={{ headerShown: false }} />
-			</Stack>
+			<QueryProvider>
+				<Stack screenOptions={{ headerShown: false }}>
+					<Stack.Screen name="index" options={{ headerShown: false }} />
+					<Stack.Screen name="(auth)" options={{ headerShown: false }} />
+				</Stack>
+			</QueryProvider>
 		</AuthProvider>
 	);
 }

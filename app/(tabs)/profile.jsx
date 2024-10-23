@@ -3,12 +3,11 @@ import React from "react";
 import { useAuth } from "@/providers/AuthProvider";
 
 const Profile = () => {
-	const { profile } = useAuth();
-	return (
-		<View>
-			<Text>Profile {profile.username}</Text>
-		</View>
-	);
+	// const { profile } = useAuth();
+
+	// if (!profile) return;
+
+	return <View>{/* <Text>Profile {profile?.username}</Text> */}</View>;
 };
 
 export default Profile;
