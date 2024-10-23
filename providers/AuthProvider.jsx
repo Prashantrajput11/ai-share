@@ -16,7 +16,7 @@ export default function AuthProvider({ children }) {
 
 			setSession(session);
 			setLoading(false);
-
+			console.log("session", session);
 			if (session) {
 				// fetch profile
 				const { data } = await supabase

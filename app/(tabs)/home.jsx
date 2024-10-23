@@ -5,6 +5,7 @@ import {
 	FlatList,
 	Image,
 	ActivityIndicator,
+	Pressable,
 } from "react-native";
 import React, { useEffect } from "react";
 import { supabase } from "../../Lib/supabase";
@@ -14,10 +15,10 @@ import { images } from "../../constants";
 import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
 import { useQuery } from "@tanstack/react-query";
+import { usePosts } from "../../api";
 const Home = () => {
 	const { profile } = useAuth();
 
-	console.log("profile", profile);
 	const signOut = async () => {
 		await supabase.auth.signOut();
 	};
@@ -26,32 +27,20 @@ const Home = () => {
 		console.log("searchh");
 	};
 
-	const { data, error, isLoading } = useQuery({
-		queryKey: ["posts"],
-		queryFn: async () => {
-			const { data, error } = await supabase.from("posts").select("*");
+	// const { data, error, isLoading } = usePosts();
 
-			if (error) {
-				throw new Error(error.message);
-			}
-			console.log("data", data);
-
-			return data;
-		},
-	});
-
-	if (isLoading) {
-		return <ActivityIndicator />;
-	}
-	if (error) {
-		<Text>Failed to fetch data</Text>;
-	}
+	// if (isLoading) {
+	// 	return <ActivityIndicator />;
+	// }
+	// if (error) {
+	// 	<Text>Failed to fetch data</Text>;
+	// }
 
 	// Return
 	return (
 		<SafeAreaView className="bg-primary ">
 			<FlatList
-				data={data}
+				data={[1, 2, 3]}
 				renderItem={({ item }) => {
 					return (
 						<View className="mt-4">
@@ -82,6 +71,10 @@ const Home = () => {
 							</View>
 
 							<SearchInput onPress={handleSearch} />
+
+							<Pressable onPress={signOut}>
+								<Text className="text-white">Sign Out</Text>
+							</Pressable>
 
 							<View className="my-4 items-center">
 								<Text className="text-white text-xl font-pregular">
