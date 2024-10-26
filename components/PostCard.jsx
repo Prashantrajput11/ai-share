@@ -6,8 +6,8 @@ import { useAuth } from "@/providers/AuthProvider";
 
 const PostCard = ({ post }) => {
 	console.log("post", post);
-	const { profile } = useAuth(); // Assuming useAuth() gives user profile info
-	const userId = profile?.id; // Get user's ID (UUID)
+	const { profile } = useAuth();
+	const userId = profile?.id;
 
 	const canEdit = userId === post.user_id;
 	const renderCardHeader = () => {
