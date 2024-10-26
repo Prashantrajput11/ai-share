@@ -12,6 +12,7 @@ import React, { useCallback } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 import { usePostById } from "../../api";
 import { icons, images } from "../../constants";
+import PostCard from "../../components/PostCard";
 
 const Profile = () => {
 	const { profile } = useAuth(); // Assuming useAuth() gives user profile info
@@ -54,7 +55,9 @@ const Profile = () => {
 		<SafeAreaView className="bg-primary h-full">
 			<FlatList
 				data={posts}
-				renderItem={renderPosts}
+				renderItem={({ item }) => {
+					return <PostCard post={item} />;
+				}}
 				ListHeaderComponent={() => {
 					return (
 						<View>

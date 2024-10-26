@@ -13,6 +13,7 @@ import FormField from "../../components/FormField";
 import CButton from "../../components/CButton";
 import * as ImagePicker from "expo-image-picker";
 import { useInsertPost } from "../../api";
+import { router } from "expo-router";
 
 const Create = () => {
 	const [image, setImage] = useState(null);
@@ -39,7 +40,14 @@ const Create = () => {
 
 	const onCreate = () => {
 		console.log("on create pressed");
-		insertPost({ image, description });
+		insertPost(
+			{ image, description },
+			{
+				onSuccess: () => {
+					router.back();
+				},
+			}
+		);
 	};
 
 	console.log("image-->", image);

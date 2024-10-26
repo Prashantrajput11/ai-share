@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../Lib/supabase";
 
 // Fetch All Posts
@@ -17,6 +17,8 @@ export const usePosts = () => {
 		},
 	});
 };
+
+// Fetch posts by Id
 export const usePostById = (userId) => {
 	return useQuery({
 		queryKey: ["userPosts", userId],
@@ -35,10 +37,11 @@ export const usePostById = (userId) => {
 	});
 };
 
+// Create Post
 export const useInsertPost = () => {
+	const queryClient = useQueryClient();
 	return useMutation({
 		async mutationFn(data) {
-			console.log("dtaaaa->", data);
 			const { data: newPost, error } = await supabase
 				.from("posts")
 				.insert({
@@ -47,7 +50,13 @@ export const useInsertPost = () => {
 				})
 				.single();
 
+			if (error) throw new Error(error.message);
+
 			return newPost;
+		},
+
+		onSuccess() {
+			queryClient.invalidateQueries(["products"]);
 		},
 	});
 };

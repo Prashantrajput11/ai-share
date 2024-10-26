@@ -16,6 +16,7 @@ import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
 import { useQuery } from "@tanstack/react-query";
 import { usePosts } from "../../api";
+import PostCard from "../../components/PostCard";
 const Home = () => {
 	const { profile } = useAuth();
 
@@ -27,7 +28,7 @@ const Home = () => {
 		console.log("searchh");
 	};
 
-	// const { data, error, isLoading } = usePosts();
+	const { data, error, isLoading } = usePosts();
 
 	// if (isLoading) {
 	// 	return <ActivityIndicator />;
@@ -40,14 +41,11 @@ const Home = () => {
 	return (
 		<SafeAreaView className="bg-primary ">
 			<FlatList
-				data={[1, 2, 3]}
+				data={data}
 				renderItem={({ item }) => {
-					return (
-						<View className="mt-4">
-							<Text className="text-3xl text-white">{item.author}</Text>
-						</View>
-					);
+					return <PostCard post={item} />;
 				}}
+				contentContainerStyle={{ marginHorizontal: 14 }}
 				ListHeaderComponent={() => {
 					return (
 						<>
